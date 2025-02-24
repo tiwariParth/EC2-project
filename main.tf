@@ -188,7 +188,7 @@ resource "aws_lb_target_group" "my_tg" {
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
-  target_type = "ip" # Ensure target type is 'ip' for Fargate
+  target_type = "ip" 
 
   health_check {
     path                = "/"

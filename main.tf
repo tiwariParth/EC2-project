@@ -129,7 +129,7 @@ resource "aws_ecs_task_definition" "my_task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
   memory                   = "512"
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn # Add this line
 
   container_definitions = jsonencode([
     {
@@ -184,10 +184,11 @@ resource "aws_lb" "my_lb" {
 }
 
 resource "aws_lb_target_group" "my_tg" {
-  name     = "my-web-app-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
+  name        = "my-web-app-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.main.id
+  target_type = "ip" # Ensure target type is 'ip' for Fargate
 
   health_check {
     path                = "/"
